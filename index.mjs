@@ -17,6 +17,12 @@ app.get("/api/hello", async (req, res) => {
   const geo = geoip.lookup("104.28.219.97");
   const url = `https://api.open-meteo.com/v1/forecast?latitude=${geo.ll[0]}&longitude=${geo.ll[1]}&hourly=temperature_2m`;
 
+  if(!visitor_name) {
+    return res.status(400).json({
+      status: 400,
+      message: "Please provide visitor name",
+    });
+  }
   try {
     const result = await axios.get(url);
     const {hourly, hourly_units } = result.data;
@@ -25,7 +31,7 @@ app.get("/api/hello", async (req, res) => {
     return res.status(200).json({
       client_ip: clientIp,
       location: geo.city,
-      greeting: `Hello ${!visitor_name ? "mark" : null}, the temperature is ${temp} degrees Celsius in ${geo.city}`,
+      greeting: `Hello ${visitor_name}, the temperature is ${temp} degrees Celsius in ${geo.city}`,
     });
   } catch (error) {
     const err = new Error(error);
