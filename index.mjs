@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
 app.get("/api/hello", async (req, res) => {
   const { visitor_name } = req.query;
   const clientIp = req.ip.replace("::ffff:", "");
-  const geo = geoip.lookup("104.28.219.97");
+  const geo = geoip.lookup(clientIp);
   const url = `https://api.open-meteo.com/v1/forecast?latitude=${geo.ll[0]}&longitude=${geo.ll[1]}&hourly=temperature_2m`;
 
   if(!visitor_name) {
