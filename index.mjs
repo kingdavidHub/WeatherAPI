@@ -9,7 +9,6 @@ const app = express();
 // middlewareIp 
 app.use(requestIp.mw());
 
-app.use(reques)
 app.get("/", (req, res) => {
   res.send("HNG stage one task");
 });
