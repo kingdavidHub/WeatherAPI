@@ -7,6 +7,10 @@ import axios from "axios";
 const app = express();
 
 
+app.get("/", (req, res) => {
+  res.send("HNG stage one task");
+});
+
 app.get("/api/hello", async (req, res) => {
   const { visitor_name } = req.query;
   const clientIp = req.ip.replace("::ffff:", "");
@@ -21,7 +25,7 @@ app.get("/api/hello", async (req, res) => {
     return res.status(200).json({
       client_ip: clientIp,
       location: geo.city,
-      greeting: `Hello ${visitor_name}, the temperature is ${temp} degrees Celsius in ${geo.city}`,
+      greeting: `Hello ${!visitor_name ? "mark" : null}, the temperature is ${temp} degrees Celsius in ${geo.city}`,
     });
   } catch (error) {
     const err = new Error(error);
