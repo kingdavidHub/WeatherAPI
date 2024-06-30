@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
 app.get("/api/hello", async (req, res) => {
   const { visitor_name } = req.query;
   const clientIp = req.ip.replace("::ffff:", "");
-  const geo = geoip.lookup(clientIp);
+  const geo = geoip.lookup(req.ip);
   const url = `https://api.open-meteo.com/v1/forecast?latitude=${geo.ll[0]}&longitude=${geo.ll[1]}&hourly=temperature_2m`;
 
   if(!visitor_name) {
@@ -28,11 +28,15 @@ app.get("/api/hello", async (req, res) => {
     const {hourly, hourly_units } = result.data;
 
     const temp = `${hourly.temperature_2m[0]} ${hourly_units.temperature_2m}`;
-    return res.status(200).json({
-      client_ip: clientIp,
-      location: geo.city,
-      greeting: `Hello ${visitor_name}, the temperature is ${temp} degrees Celsius in ${geo.city}`,
-    });
+    // return res.status(200).json({
+    //   client_ip: clientIp,
+    //   location: geo.city,
+    //   greeting: `Hello ${visitor_name}, the temperature is ${temp} degrees Celsius in ${geo.city}`,
+    // });
+    return res.json({
+      ip: req.ip,
+      geo
+    })
   } catch (error) {
     const err = new Error(error);
     err.statusCode = 500;
