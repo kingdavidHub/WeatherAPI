@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/hello", async (req, res, next) => {
-  const { visitor_name } = req.query;
+  const { visitor_name } = req.query || "mark";
   // const clientIp = req.ip.replace("::ffff:", "");
   const ip = req.clientIp;
   // const geo = geoip.lookup("104.28.251.97");
