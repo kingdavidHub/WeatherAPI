@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "destination": "/api/hello",
   "builds": [
     {
       "src": "index.mjs",
