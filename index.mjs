@@ -10,7 +10,7 @@ const app = express();
 app.use(requestIp.mw());
 
 app.get("/", (req, res) => {
-  res.send("HNG stage one task");
+  return res.send("HNG stage one task");
 });
 
 app.get("/api/hello", async (req, res, next) => {
