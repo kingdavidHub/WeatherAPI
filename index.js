@@ -1,9 +1,9 @@
-import dotenv from "dotenv";
+const dotenv = require("dotenv");
 dotenv.config({ path: `${process.cwd()}/.env` });
-import express from "express";
-import geoip from "geoip-lite";
-import axios from "axios";
-import requestIp from "request-ip";
+const express = require("express");
+const geoip = require("geoip-lite");
+const axios = require("axios");
+const requestIp = require("request-ip");
 const app = express();
 
 // middlewareIp
@@ -61,4 +61,4 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5055;
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(3000, () => console.log(`Server running on port 3000`));
